@@ -1,0 +1,1592 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>串燒品牌五都選點分析 | 焦糖楓 × 柒息地</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;700;900&family=Noto+Sans+TC:wght@300;400;500;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+:root {
+  --bg-primary: #0f0e0c;
+  --bg-secondary: #1a1916;
+  --bg-card: #211f1b;
+  --bg-elevated: #2a2724;
+  --border: #3a3530;
+  --text-primary: #f5f0e8;
+  --text-secondary: #a89e8f;
+  --text-muted: #6b6258;
+  --accent-fire: #e8552c;
+  --accent-amber: #f5a524;
+  --accent-charcoal: #4a443c;
+  --accent-success: #8fb069;
+  --accent-warning: #d97757;
+  --accent-danger: #c1432e;
+  --accent-info: #c8a978;
+  --grid-line: rgba(245, 240, 232, 0.06);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: 'Noto Sans TC', sans-serif;
+  font-weight: 400;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  background-image:
+    radial-gradient(circle at 20% 0%, rgba(232, 85, 44, 0.04) 0%, transparent 50%),
+    radial-gradient(circle at 80% 100%, rgba(245, 165, 36, 0.03) 0%, transparent 50%);
+  min-height: 100vh;
+}
+
+.serif { font-family: 'Noto Serif TC', serif; }
+.mono { font-family: 'JetBrains Mono', monospace; }
+
+/* === HEADER === */
+.masthead {
+  border-bottom: 1px solid var(--border);
+  padding: 24px 48px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  background: var(--bg-secondary);
+}
+.masthead-left { display: flex; flex-direction: column; gap: 4px; }
+.masthead-eyebrow {
+  font-size: 11px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--accent-fire);
+  font-weight: 700;
+}
+.masthead-title {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 32px;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+}
+.masthead-right { text-align: right; }
+.masthead-meta {
+  font-size: 11px;
+  color: var(--text-muted);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.masthead-date {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  color: var(--text-secondary);
+  margin-top: 4px;
+}
+
+/* === MAIN CONTAINER === */
+.container { max-width: 1440px; margin: 0 auto; padding: 48px; }
+
+/* === HERO === */
+.hero {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 64px;
+  margin-bottom: 80px;
+  padding-bottom: 64px;
+  border-bottom: 1px solid var(--border);
+}
+.hero-headline {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 56px;
+  font-weight: 900;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  margin-bottom: 24px;
+}
+.hero-headline .accent { color: var(--accent-fire); font-style: italic; }
+.hero-subhead {
+  font-size: 17px;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  max-width: 580px;
+}
+
+.hero-stats {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  border-left: 2px solid var(--accent-fire);
+  padding-left: 28px;
+}
+.hero-stat-row {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+}
+.hero-stat-num {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 56px;
+  font-weight: 900;
+  color: var(--accent-amber);
+  line-height: 1;
+  min-width: 100px;
+}
+.hero-stat-text {
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+.hero-stat-text strong { color: var(--text-primary); font-weight: 700; }
+
+/* === SECTION === */
+section { margin-bottom: 80px; }
+.section-header {
+  display: flex;
+  align-items: baseline;
+  gap: 24px;
+  margin-bottom: 36px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border);
+}
+.section-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: var(--accent-fire);
+  letter-spacing: 0.15em;
+  font-weight: 700;
+}
+.section-title {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 32px;
+  font-weight: 900;
+  letter-spacing: -0.01em;
+}
+.section-kicker {
+  margin-left: auto;
+  font-size: 12px;
+  color: var(--text-muted);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+/* === GRID === */
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+
+/* === CARD === */
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 28px;
+  transition: border-color 0.2s, transform 0.2s;
+}
+.card:hover { border-color: var(--accent-charcoal); }
+.card-eyebrow {
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent-fire);
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+.card-title {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 16px;
+  line-height: 1.3;
+}
+.card-body { font-size: 14px; color: var(--text-secondary); line-height: 1.7; }
+.card-body p + p { margin-top: 12px; }
+
+/* === TAB === */
+.tabs {
+  display: flex;
+  gap: 0;
+  margin-bottom: 32px;
+  border-bottom: 1px solid var(--border);
+}
+.tab {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font-family: 'Noto Sans TC', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  padding: 16px 28px;
+  cursor: pointer;
+  letter-spacing: 0.05em;
+  border-bottom: 3px solid transparent;
+  transition: color 0.2s, border-color 0.2s;
+  position: relative;
+  bottom: -1px;
+}
+.tab:hover { color: var(--text-secondary); }
+.tab.active {
+  color: var(--accent-fire);
+  border-bottom-color: var(--accent-fire);
+}
+.tab-content { display: none; }
+.tab-content.active { display: block; animation: fadeIn 0.4s ease; }
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* === CHART === */
+.chart-wrapper {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 28px;
+  position: relative;
+}
+.chart-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 20px;
+}
+.chart-title {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 18px;
+  font-weight: 700;
+}
+.chart-subtitle {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+.chart-canvas-container {
+  position: relative;
+  height: 320px;
+}
+.chart-canvas-container.tall { height: 420px; }
+
+/* === TABLE === */
+.dt-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  overflow: hidden;
+}
+.dt-table th {
+  text-align: left;
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  padding: 14px 16px;
+  background: var(--bg-secondary);
+  border-bottom: 1px solid var(--border);
+}
+.dt-table td {
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--border);
+  color: var(--text-secondary);
+}
+.dt-table tr:last-child td { border-bottom: none; }
+.dt-table tr:hover { background: var(--bg-elevated); }
+.dt-table .num { font-family: 'JetBrains Mono', monospace; }
+.dt-table .num-good { color: var(--accent-success); }
+.dt-table .num-bad { color: var(--accent-danger); }
+.dt-table .num-warn { color: var(--accent-warning); }
+.dt-table .name-strong { color: var(--text-primary); font-weight: 700; }
+
+/* === RANK ITEM === */
+.rank-list { display: flex; flex-direction: column; gap: 16px; }
+.rank-item {
+  display: grid;
+  grid-template-columns: 60px 1fr auto;
+  gap: 24px;
+  align-items: center;
+  padding: 20px 24px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  transition: all 0.2s;
+}
+.rank-item:hover { border-color: var(--accent-fire); transform: translateX(4px); }
+.rank-num {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 48px;
+  font-weight: 900;
+  color: var(--accent-charcoal);
+  line-height: 1;
+}
+.rank-item.gold .rank-num { color: var(--accent-amber); }
+.rank-item.silver .rank-num { color: #c0a98e; }
+.rank-item.bronze .rank-num { color: #a07050; }
+
+.rank-content-title {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+.rank-content-desc {
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+.rank-score {
+  text-align: right;
+  font-family: 'JetBrains Mono', monospace;
+}
+.rank-score-num {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--accent-amber);
+}
+.rank-score-label {
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+/* === CALLOUT === */
+.callout {
+  background: linear-gradient(135deg, var(--bg-card) 0%, var(--bg-elevated) 100%);
+  border-left: 4px solid var(--accent-fire);
+  padding: 28px 32px;
+  margin: 24px 0;
+}
+.callout-eyebrow {
+  font-size: 11px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--accent-fire);
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+.callout-text {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 20px;
+  line-height: 1.55;
+  font-weight: 400;
+}
+.callout-text em { color: var(--accent-amber); font-style: italic; }
+
+/* === BADGE === */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 2px;
+  letter-spacing: 0.05em;
+}
+.badge-fire { background: rgba(232, 85, 44, 0.15); color: var(--accent-fire); }
+.badge-amber { background: rgba(245, 165, 36, 0.15); color: var(--accent-amber); }
+.badge-success { background: rgba(143, 176, 105, 0.15); color: var(--accent-success); }
+.badge-danger { background: rgba(193, 67, 46, 0.15); color: var(--accent-danger); }
+.badge-warn { background: rgba(217, 119, 87, 0.15); color: var(--accent-warning); }
+
+/* === COMPARE === */
+.compare-grid {
+  display: grid;
+  grid-template-columns: 1fr 80px 1fr;
+  gap: 0;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  overflow: hidden;
+}
+.compare-col { padding: 32px; }
+.compare-col.left { background: rgba(143, 176, 105, 0.05); }
+.compare-col.right { background: rgba(193, 67, 46, 0.05); }
+.compare-vs {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-secondary);
+  font-family: 'Noto Serif TC', serif;
+  font-size: 32px;
+  font-weight: 900;
+  color: var(--text-muted);
+  font-style: italic;
+}
+.compare-title {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 24px;
+  font-weight: 900;
+  margin-bottom: 4px;
+}
+.compare-col.left .compare-title { color: var(--accent-success); }
+.compare-col.right .compare-title { color: var(--accent-danger); }
+.compare-subtitle {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-bottom: 24px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.compare-points { display: flex; flex-direction: column; gap: 14px; }
+.compare-point {
+  display: flex;
+  gap: 12px;
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+.compare-point::before {
+  content: "—";
+  color: var(--text-muted);
+  flex-shrink: 0;
+}
+
+/* === PILL === */
+.pill-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+.pill {
+  font-size: 11px;
+  padding: 6px 12px;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  color: var(--text-secondary);
+}
+.pill.pill-strong { background: rgba(232, 85, 44, 0.15); color: var(--accent-fire); border-color: rgba(232, 85, 44, 0.3); }
+
+/* === COMPETITORS === */
+.competitor-card {
+  display: flex;
+  flex-direction: column;
+  padding: 18px 20px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  border-top: 3px solid var(--accent-danger);
+}
+.competitor-name {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+.competitor-rating {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: var(--accent-amber);
+  margin-bottom: 8px;
+}
+.competitor-area {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+/* === SCROLL NAV === */
+.scroll-nav {
+  position: fixed;
+  right: 32px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  z-index: 100;
+}
+.scroll-nav-dot {
+  width: 8px;
+  height: 8px;
+  background: var(--border);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.2s;
+  border: none;
+  padding: 0;
+}
+.scroll-nav-dot:hover { background: var(--text-muted); transform: scale(1.4); }
+.scroll-nav-dot.active { background: var(--accent-fire); transform: scale(1.4); }
+
+/* === FOOTER === */
+.footer {
+  border-top: 1px solid var(--border);
+  padding: 32px 48px;
+  text-align: center;
+  font-size: 11px;
+  color: var(--text-muted);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+@media (max-width: 1024px) {
+  .container { padding: 32px 24px; }
+  .hero { grid-template-columns: 1fr; gap: 32px; }
+  .hero-headline { font-size: 40px; }
+  .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+  .compare-grid { grid-template-columns: 1fr; }
+  .compare-vs { padding: 16px; }
+  .scroll-nav { display: none; }
+  .masthead { padding: 16px 24px; flex-direction: column; align-items: flex-start; gap: 12px; }
+  .masthead-right { text-align: left; }
+}
+</style>
+</head>
+<body>
+
+<header class="masthead">
+  <div class="masthead-left">
+    <div class="masthead-eyebrow">Strategic Site Selection Analysis</div>
+    <h1 class="masthead-title">焦糖楓 × 柒息地 五都展店分析</h1>
+  </div>
+  <div class="masthead-right">
+    <div class="masthead-meta">Internal Team Brief</div>
+    <div class="masthead-date">2026 · 05 · 03 · DRAFT v1</div>
+  </div>
+</header>
+
+<nav class="scroll-nav">
+  <button class="scroll-nav-dot active" data-target="hero" title="總覽"></button>
+  <button class="scroll-nav-dot" data-target="diagnosis" title="三重蘆洲診斷"></button>
+  <button class="scroll-nav-dot" data-target="compare" title="永和板橋比較"></button>
+  <button class="scroll-nav-dot" data-target="cities" title="六都人口比較"></button>
+  <button class="scroll-nav-dot" data-target="ranking" title="五都排序"></button>
+  <button class="scroll-nav-dot" data-target="recommendations" title="展店建議"></button>
+  <button class="scroll-nav-dot" data-target="rescue" title="既有店搶救"></button>
+</nav>
+
+<div class="container">
+
+<!-- ========== HERO ========== -->
+<section id="hero" class="hero">
+  <div>
+    <h2 class="hero-headline">
+      不是<span class="accent">夜市效應</span>,<br>
+      也不是<span class="accent">在地人不吃串燒</span>。
+    </h2>
+    <p class="hero-subhead">
+      三重蘆洲既有店業績慘淡的真正原因,藏在三組互相牽動的數據裡:在地老店紅海化、人口零成長、缺乏外部客流灌入。本報告整合內政部戶政司、財政部綜所稅、各區人口結構分析,為焦糖楓(外帶型)與柒息地(內用型)兩品牌,提出五都展店優先順序與具體區位建議。
+    </p>
+  </div>
+  <div class="hero-stats">
+    <div class="hero-stat-row">
+      <div class="hero-stat-num">8+</div>
+      <div class="hero-stat-text">三重蘆洲<strong>串燒/居酒屋強敵</strong>(老串角、鏊屋、京田津、宅丁亭、熊賀⋯⋯),平均評價 <strong>4.5★ 以上</strong></div>
+    </div>
+    <div class="hero-stat-row">
+      <div class="hero-stat-num">19.7<span style="font-size:24px;">%</span></div>
+      <div class="hero-stat-text">三重區 <strong>65 歲以上人口比例</strong>,逼近超高齡社會門檻</div>
+    </div>
+    <div class="hero-stat-row">
+      <div class="hero-stat-num">37.5</div>
+      <div class="hero-stat-text"><strong>桃園市平均年齡</strong>,六都最年輕,移工年消費商機 <strong>新台幣 79 億</strong></div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== SECTION 1: 三重蘆洲診斷 ========== -->
+<section id="diagnosis">
+  <div class="section-header">
+    <span class="section-num">01 / DIAGNOSIS</span>
+    <h3 class="section-title">三重蘆洲的「在地飲食習慣」假設,真相是什麼?</h3>
+    <span class="section-kicker">破解業績謎題</span>
+  </div>
+
+  <div class="callout">
+    <div class="callout-eyebrow">Key Finding</div>
+    <p class="callout-text">
+      <em>不是在地人不吃串燒</em> — 三重蘆洲在地人非常會吃串燒,而且都認在地老店。<br>
+      真正問題是 <em>連鎖品牌沒有差異化武器</em>,在這片紅海裡夾在中間。
+    </p>
+  </div>
+
+  <div class="grid-2" style="margin-top: 32px;">
+    <div>
+      <div class="card-eyebrow">DEMOGRAPHIC FOOTPRINT</div>
+      <h4 class="card-title">三重區 113 年人口結構</h4>
+      <div class="chart-wrapper" style="padding: 20px;">
+        <div class="chart-canvas-container" style="height: 280px;">
+          <canvas id="chartSanchongAge"></canvas>
+        </div>
+      </div>
+      <p class="card-body" style="margin-top: 16px;">
+        資料來源:新北市三重區公所「113 年人口結構分析」。三重區 65 歲以上人口已達 19.7%,接近超高齡社會門檻;戶量降至 2.31 人/戶,單身/獨居比例升高,但「一人吃串燒」並非台灣主流飲食習慣。
+      </p>
+    </div>
+
+    <div>
+      <div class="card-eyebrow">COMPETITIVE LANDSCAPE</div>
+      <h4 class="card-title">三重蘆洲串燒/居酒屋強敵盤點</h4>
+      <div class="grid-2" style="gap: 12px;">
+        <div class="competitor-card">
+          <div class="competitor-name">老串角</div>
+          <div class="competitor-rating">★ 4.9 · 1,200+ 評論</div>
+          <div class="competitor-area">三重 自強路</div>
+        </div>
+        <div class="competitor-card">
+          <div class="competitor-name">鏊屋</div>
+          <div class="competitor-rating">★ 多分店連鎖</div>
+          <div class="competitor-area">蘆洲總店+三重+新莊</div>
+        </div>
+        <div class="competitor-card">
+          <div class="competitor-name">京田津居酒屋</div>
+          <div class="competitor-rating">★ 在地激推</div>
+          <div class="competitor-area">三重 重陽路</div>
+        </div>
+        <div class="competitor-card">
+          <div class="competitor-name">宅丁亭迴轉串燒</div>
+          <div class="competitor-rating">★ 三層樓店</div>
+          <div class="competitor-area">三重 菜寮捷運站</div>
+        </div>
+        <div class="competitor-card">
+          <div class="competitor-name">熊賀串燒</div>
+          <div class="competitor-rating">★ 蘆洲必訪</div>
+          <div class="competitor-area">蘆洲 三民高中站</div>
+        </div>
+        <div class="competitor-card">
+          <div class="competitor-name">饗串味</div>
+          <div class="competitor-rating">★ 4.5 · 炭火</div>
+          <div class="competitor-area">蘆洲 九芎街</div>
+        </div>
+        <div class="competitor-card">
+          <div class="competitor-name">夜こそ Yorukoso</div>
+          <div class="competitor-rating">★ 下班首選</div>
+          <div class="competitor-area">三重 三重國小站</div>
+        </div>
+        <div class="competitor-card">
+          <div class="competitor-name">弘燒烤酒場</div>
+          <div class="competitor-rating">★ 4.2 · 日本酒</div>
+          <div class="competitor-area">三重 三和國中站</div>
+        </div>
+      </div>
+      <p class="card-body" style="margin-top: 16px; font-style: italic;">
+        柒息地三重自強店進入時,等於踩進老串角的主場。這些店都已佔住「巷弄、捷運站、夜市旁」三種主要商圈位置。
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ========== SECTION 2: 永和板橋 vs 三重蘆洲 ========== -->
+<section id="compare">
+  <div class="section-header">
+    <span class="section-num">02 / COMPARISON</span>
+    <h3 class="section-title">為什麼永和板橋成功,三重蘆洲失敗?</h3>
+    <span class="section-kicker">商圈結構深度對比</span>
+  </div>
+
+  <div class="compare-grid">
+    <div class="compare-col left">
+      <div class="compare-title">永和 · 板橋</div>
+      <div class="compare-subtitle">EXTERNAL TRAFFIC IN</div>
+      <div class="compare-points">
+        <div class="compare-point">永和區人口密度全台最高(23.5 萬人 / 5.559 平方公里)</div>
+        <div class="compare-point">捷運頂溪站 → 台北博愛特區僅 10 分鐘車程</div>
+        <div class="compare-point">樂華夜市實際是「雙北通勤族共用覓食基地」,客群=在地居民+台北上班族外溢</div>
+        <div class="compare-point">板橋為新北市政府所在地、新板特區為新北所得前 10 重劃區</div>
+        <div class="compare-point">高鐵+台鐵+捷運三鐵共構,商圈是「通勤+在地+政商」三層結構</div>
+      </div>
+    </div>
+    <div class="compare-vs">VS</div>
+    <div class="compare-col right">
+      <div class="compare-title">三重 · 蘆洲</div>
+      <div class="compare-subtitle">EXTERNAL TRAFFIC OUT</div>
+      <div class="compare-points">
+        <div class="compare-point">是通勤族「離開」的起點(往台北上班),非外部客流終點</div>
+        <div class="compare-point">人口零成長(三重十年 -2.8%),不像桃園、林口有重劃區帶入新青壯年</div>
+        <div class="compare-point">早期中南部北上移民聚集地,飲食偏好仍以小吃、海產、熱炒、薑母鴨為主</div>
+        <div class="compare-point">串燒/居酒屋已紅海化,8+ 家在地名店各自佔住捷運站、巷弄、夜市旁</div>
+        <div class="compare-point">捷運站周邊已被在地老店卡住,連鎖品牌無差異化記憶點</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid-2" style="margin-top: 40px;">
+    <div class="chart-wrapper">
+      <div class="chart-header">
+        <div>
+          <div class="chart-title">五區人口成長率比較(近10年)</div>
+          <div class="chart-subtitle">三重蘆洲幾近停滯,板橋微增,新興區大幅領先</div>
+        </div>
+      </div>
+      <div class="chart-canvas-container">
+        <canvas id="chartGrowth"></canvas>
+      </div>
+    </div>
+    <div class="chart-wrapper">
+      <div class="chart-header">
+        <div>
+          <div class="chart-title">老年人口比例(2024)</div>
+          <div class="chart-subtitle">永和雖也老化,但靠台北外部客流彌補;三重蘆洲沒有外援</div>
+        </div>
+      </div>
+      <div class="chart-canvas-container">
+        <canvas id="chartAging"></canvas>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== SECTION 2.5: 六都人口比較(展店依據) ========== -->
+<section id="cities">
+  <div class="section-header">
+    <span class="section-num">03 / CITY DATA</span>
+    <h3 class="section-title">六都人口數據總覽 — 展店優先序的依據</h3>
+    <span class="section-kicker">資料:內政部戶政司 · 國發會</span>
+  </div>
+
+  <div class="callout">
+    <div class="callout-eyebrow">Why This Matters</div>
+    <p class="callout-text">
+      展店排序不能只看「人口多」 — 要看 <em>青壯年比例、人口成長動能、年增率</em> 三個指標。
+      這張表是後面五都排序的數據基礎。
+    </p>
+  </div>
+
+  <div style="margin-top: 32px; overflow-x: auto;">
+    <table class="dt-table" style="font-size: 13px;">
+      <thead>
+        <tr>
+          <th style="width: 14%;">城市</th>
+          <th>總人口(2024年底)</th>
+          <th>15-64 歲青壯年比</th>
+          <th>65 歲以上老年比</th>
+          <th>近10年成長率</th>
+          <th>2023年增率</th>
+          <th>展店適配度</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="background: rgba(245, 165, 36, 0.08);">
+          <td class="name-strong" style="color: var(--accent-amber);">桃園市 🥇</td>
+          <td class="num">2,355,512 人</td>
+          <td class="num num-good">73.0%(六都最高)</td>
+          <td class="num num-good">14.5%(六都最低)</td>
+          <td class="num num-good">+9.27%</td>
+          <td class="num num-good">+1.32%(全台第一)</td>
+          <td><span class="badge badge-fire">最高</span></td>
+        </tr>
+        <tr>
+          <td class="name-strong">台中市</td>
+          <td class="num">2,820,440 人</td>
+          <td class="num num-good">71.5%</td>
+          <td class="num num-warn">15.0%</td>
+          <td class="num num-good">+5.8%</td>
+          <td class="num num-good">+0.92%</td>
+          <td><span class="badge badge-amber">高</span></td>
+        </tr>
+        <tr>
+          <td class="name-strong">新北市</td>
+          <td class="num">4,047,001 人(全台最多)</td>
+          <td class="num num-warn">70.2%</td>
+          <td class="num num-warn">19.0%</td>
+          <td class="num num-warn">+2.5%</td>
+          <td class="num num-good">+0.85%</td>
+          <td><span class="badge badge-amber">主場已飽和</span></td>
+        </tr>
+        <tr>
+          <td class="name-strong">台北市</td>
+          <td class="num">2,476,000 人</td>
+          <td class="num num-bad">64.8%(六都最低)</td>
+          <td class="num num-bad">21.2%</td>
+          <td class="num num-bad">-3.2%</td>
+          <td class="num num-good">+0.82%</td>
+          <td><span class="badge badge-warn">老化嚴重</span></td>
+        </tr>
+        <tr>
+          <td class="name-strong">高雄市</td>
+          <td class="num">2,728,000 人</td>
+          <td class="num num-warn">70.5%</td>
+          <td class="num num-warn">18.5%</td>
+          <td class="num num-bad">-1.5%</td>
+          <td class="num num-warn">+0.16%(六都最低)</td>
+          <td><span class="badge badge-warn">中</span></td>
+        </tr>
+        <tr>
+          <td class="name-strong">台南市</td>
+          <td class="num">1,853,000 人(六都最少)</td>
+          <td class="num num-warn">70.0%</td>
+          <td class="num num-warn">19.0%</td>
+          <td class="num num-bad">-2.0%</td>
+          <td class="num num-warn">-0.05%</td>
+          <td><span class="badge badge-danger">低</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="grid-2" style="margin-top: 40px;">
+    <div class="card" style="border-left: 3px solid var(--accent-fire);">
+      <div class="card-eyebrow">關鍵數據解讀</div>
+      <h4 class="card-title">為什麼桃園是首選?</h4>
+      <p class="card-body">
+        桃園市同時拿下 <strong style="color:var(--text-primary)">三個最高分</strong>:
+      </p>
+      <ul style="padding-left: 20px; color: var(--text-secondary); font-size: 13px; line-height: 2; margin-top: 12px;">
+        <li>青壯年比 <strong style="color:var(--accent-amber)">73.0%</strong> — 六都最高</li>
+        <li>老年比 <strong style="color:var(--accent-success)">14.5%</strong> — 六都最低(代表還沒進入超高齡社會)</li>
+        <li>2023 年增率 <strong style="color:var(--accent-success)">+1.32%</strong> — 全台第一</li>
+        <li>勞動人口集中、消費力旺盛、移工 + 雙北脫北族雙重客源</li>
+      </ul>
+    </div>
+    <div class="card" style="border-left: 3px solid var(--accent-warning);">
+      <div class="card-eyebrow">展店警示</div>
+      <h4 class="card-title">為什麼台北/台南排末段?</h4>
+      <p class="card-body">
+        台北市青壯年比僅 <strong style="color:var(--text-primary)">64.8%(六都最低)</strong>、老年比 21.2%、十年人口減少 3.2%,租金又最貴 — 投報率不佳。
+      </p>
+      <p class="card-body" style="margin-top: 12px;">
+        台南市為六都人口最少(1.85M)、近十年衰退 2%,加上夜市以攤位型為主,連鎖店面難搶在地老店的價格優勢。
+      </p>
+    </div>
+  </div>
+</section>
+  <div class="section-header">
+    <span class="section-num">04 / RANKING</span>
+    <h3 class="section-title">五都展店優先順序總覽</h3>
+    <span class="section-kicker">綜合人口、所得、競爭三維度</span>
+  </div>
+
+  <div class="rank-list">
+    <div class="rank-item gold">
+      <div class="rank-num">01</div>
+      <div>
+        <div class="rank-content-title">桃園市 <span class="badge badge-fire">FIRST PICK</span></div>
+        <div class="rank-content-desc">
+          六都最年輕(平均 37.5 歲),勞動人口占 73%,近五年淨增 19 萬人(全台第一),雙北脫北族大量遷入。中壢移工商圈年消費商機新台幣 79 億 — 這群東南亞移工是被低估的串燒消費族群。
+        </div>
+        <div class="pill-row">
+          <span class="pill pill-strong">焦糖楓 ⭐⭐⭐⭐⭐</span>
+          <span class="pill pill-strong">柒息地 ⭐⭐⭐⭐⭐</span>
+          <span class="pill">租金低於雙北 30-50%</span>
+        </div>
+      </div>
+      <div class="rank-score">
+        <div class="rank-score-num">90</div>
+        <div class="rank-score-label">SCORE</div>
+      </div>
+    </div>
+
+    <div class="rank-item silver">
+      <div class="rank-num">02</div>
+      <div>
+        <div class="rank-content-title">台中市</div>
+        <div class="rank-content-desc">
+          居酒屋文化已成熟(公益路、勤美草悟道、一中街都有大量居酒屋),北屯區為台中人口最多區、超過 31.8 萬人且持續快速成長,新建案多、年輕家庭多、夜市文化發達。
+        </div>
+        <div class="pill-row">
+          <span class="pill">焦糖楓 ⭐⭐⭐⭐</span>
+          <span class="pill pill-strong">柒息地 ⭐⭐⭐⭐⭐</span>
+          <span class="pill">高價居酒屋多,平價定位有缺口</span>
+        </div>
+      </div>
+      <div class="rank-score">
+        <div class="rank-score-num">80</div>
+        <div class="rank-score-label">SCORE</div>
+      </div>
+    </div>
+
+    <div class="rank-item bronze">
+      <div class="rank-num">03</div>
+      <div>
+        <div class="rank-content-title">高雄市</div>
+        <div class="rank-content-desc">
+          人均消費餐飲意願高,夜市攤位串燒非常吃,北高雄(三民、左營、鼓山、楠梓)為人口流入區。漢神巨蛋、瑞豐夜市、左營高鐵站周邊是黃金商圈。注意夏季高溫對外帶型有挑戰。
+        </div>
+        <div class="pill-row">
+          <span class="pill">焦糖楓 ⭐⭐⭐⭐</span>
+          <span class="pill">柒息地 ⭐⭐⭐</span>
+          <span class="pill">夏季外帶 7-9 月需強化空調候餐區</span>
+        </div>
+      </div>
+      <div class="rank-score">
+        <div class="rank-score-num">65</div>
+        <div class="rank-score-label">SCORE</div>
+      </div>
+    </div>
+
+    <div class="rank-item">
+      <div class="rank-num">04</div>
+      <div>
+        <div class="rank-content-title">台南市</div>
+        <div class="rank-content-desc">
+          台南夜市以「攤位型」為主(花園、大東、武聖三大流動夜市),固定店面式串燒店難搶價格優勢。台南人對「餐飲品牌」忠誠度低,在地老店為王。但東區、永康區青壯年聚集仍有機會。
+        </div>
+        <div class="pill-row">
+          <span class="pill">焦糖楓 ⭐⭐⭐</span>
+          <span class="pill">柒息地 ⭐⭐</span>
+          <span class="pill">建議觀望</span>
+        </div>
+      </div>
+      <div class="rank-score">
+        <div class="rank-score-num">50</div>
+        <div class="rank-score-label">SCORE</div>
+      </div>
+    </div>
+
+    <div class="rank-item">
+      <div class="rank-num">05</div>
+      <div>
+        <div class="rank-content-title">新北市(其他區)</div>
+        <div class="rank-content-desc">
+          已是主場,建議補強而非新拓。可考慮新莊頭前重劃區/副都心、林口三井 Outlet/長庚商圈、淡水紅樹林捷運沿線、三峽北大特區。永和板橋既有店建議深耕而非開分店。
+        </div>
+        <div class="pill-row">
+          <span class="pill">焦糖楓 ⭐⭐⭐</span>
+          <span class="pill">柒息地 ⭐⭐⭐</span>
+          <span class="pill badge-danger">不建議再進三重蘆洲</span>
+        </div>
+      </div>
+      <div class="rank-score">
+        <div class="rank-score-num">45</div>
+        <div class="rank-score-label">SCORE</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="chart-wrapper" style="margin-top: 40px;">
+    <div class="chart-header">
+      <div>
+        <div class="chart-title">展店評分表雷達圖 - 五都候選區位比較</div>
+        <div class="chart-subtitle">8 維度評估:人口數、年齡結構、平均收入、人口成長、交通、競爭環境、租金、品牌適配</div>
+      </div>
+    </div>
+    <div class="chart-canvas-container tall">
+      <canvas id="chartRadar"></canvas>
+    </div>
+  </div>
+</section>
+
+<!-- ========== SECTION 4: 各都建議區位 ========== -->
+<section id="recommendations">
+  <div class="section-header">
+    <span class="section-num">05 / RECOMMENDATIONS</span>
+    <h3 class="section-title">各都建議區位 - 焦糖楓 vs 柒息地</h3>
+    <span class="section-kicker">具體展店點位</span>
+  </div>
+
+  <div class="tabs">
+    <button class="tab active" data-tab="taoyuan">桃園市 🥇</button>
+    <button class="tab" data-tab="taichung">台中市 🥈</button>
+    <button class="tab" data-tab="kaohsiung">高雄市 🥉</button>
+    <button class="tab" data-tab="tainan">台南市</button>
+    <button class="tab" data-tab="newtaipei">新北市補強</button>
+  </div>
+
+  <!-- 桃園 -->
+  <div class="tab-content active" id="tab-taoyuan">
+
+    <!-- 桃園各區對比表 -->
+    <div style="margin-bottom: 32px;">
+      <h4 style="font-family: 'Noto Serif TC', serif; font-size: 22px; margin-bottom: 8px; color: var(--text-primary);">桃園市內各區比較 — 為什麼中壢區最適合?</h4>
+      <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 20px; font-style: italic;">
+        資料:桃園市民政局統計、BPM 區域分析平台、聯合新聞網(2024)
+      </p>
+      <div style="overflow-x: auto;">
+        <table class="dt-table" style="font-size: 13px;">
+          <thead>
+            <tr>
+              <th style="width: 14%;">行政區</th>
+              <th>總人口</th>
+              <th>10 年成長率</th>
+              <th>青壯年比</th>
+              <th>商圈特色</th>
+              <th>適合品牌</th>
+              <th>建議優先序</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="background: rgba(232, 85, 44, 0.08);">
+              <td class="name-strong" style="color: var(--accent-fire);">中壢區 🥇</td>
+              <td class="num">421,374 人</td>
+              <td class="num num-good">+12.0%</td>
+              <td class="num num-good">73%</td>
+              <td>移工年消費 79 億、40 歲以下人口過半、商圈成熟、學生多</td>
+              <td><span class="badge badge-fire">兩品牌都適合</span></td>
+              <td><span class="badge badge-fire">第一順位</span></td>
+            </tr>
+            <tr>
+              <td class="name-strong">桃園區</td>
+              <td class="num">459,656 人(全區最多)</td>
+              <td class="num num-good">+11.2%</td>
+              <td class="num num-good">72%</td>
+              <td>市政中心、藝文特區、中路重劃區、雙北脫北族</td>
+              <td><span class="badge badge-amber">兩品牌都適合</span></td>
+              <td><span class="badge badge-amber">第二順位</span></td>
+            </tr>
+            <tr>
+              <td class="name-strong">龜山區</td>
+              <td class="num">170,765 人</td>
+              <td class="num num-good">+22.3%(全市第一)</td>
+              <td class="num num-good">73%</td>
+              <td>A7 重劃區、林口長庚對面、首購族多、機捷沿線</td>
+              <td><span class="badge badge-amber">焦糖楓優先</span></td>
+              <td><span class="badge badge-amber">第三順位</span></td>
+            </tr>
+            <tr>
+              <td class="name-strong">八德區</td>
+              <td class="num">209,266 人</td>
+              <td class="num num-good">+17.0%</td>
+              <td class="num num-good">71.6%</td>
+              <td>廣豐特區、八德擴大重劃區、馬祖人聚集</td>
+              <td><span class="badge">焦糖楓較適合</span></td>
+              <td><span class="badge">第四順位</span></td>
+            </tr>
+            <tr>
+              <td class="name-strong">平鎮區</td>
+              <td class="num">230,000 人</td>
+              <td class="num num-warn">+5.5%</td>
+              <td class="num num-warn">70%</td>
+              <td>客家聚落、義民信仰、中壢南側衛星區</td>
+              <td><span class="badge">觀望</span></td>
+              <td><span class="badge">未列入</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- 中壢勝出的三個關鍵 -->
+    <div class="grid-3" style="margin-bottom: 32px; gap: 20px;">
+      <div class="card" style="border-top: 3px solid var(--accent-fire);">
+        <div class="card-eyebrow">勝出關鍵 1</div>
+        <h4 class="card-title" style="font-size: 18px;">移工經濟 🌏</h4>
+        <p class="card-body" style="font-size: 13px;">
+          中壢是全台最大移工商圈,東南亞移工年消費商機 <strong style="color:var(--accent-amber)">79 億新台幣</strong>。串燒/居酒屋的「平價聚餐」型態最受移工歡迎。
+        </p>
+      </div>
+      <div class="card" style="border-top: 3px solid var(--accent-amber);">
+        <div class="card-eyebrow">勝出關鍵 2</div>
+        <h4 class="card-title" style="font-size: 18px;">人口紅利 👥</h4>
+        <p class="card-body" style="font-size: 13px;">
+          中壢區 <strong style="color:var(--text-primary)">40 歲以下人口超過半數</strong>,最多年齡層為 35-39 歲 — 正是串燒/居酒屋核心客群。
+        </p>
+      </div>
+      <div class="card" style="border-top: 3px solid var(--accent-success);">
+        <div class="card-eyebrow">勝出關鍵 3</div>
+        <h4 class="card-title" style="font-size: 18px;">交通優勢 🚄</h4>
+        <p class="card-body" style="font-size: 13px;">
+          台鐵中壢站、機捷青埔高鐵桃園站、中壢工業區密布、中央大學/中原大學學區 — <strong style="color:var(--text-primary)">四種客群一站打盡</strong>。
+        </p>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-eyebrow">焦糖楓 · 外帶型</div>
+        <h4 class="card-title">優先點位</h4>
+        <ol style="padding-left: 20px; color: var(--text-secondary); font-size: 14px; line-height: 2;">
+          <li><strong style="color:var(--text-primary)">中壢區青埔/華泰名品城周邊</strong> — 高鐵桃園站、年輕家庭重劃區</li>
+          <li><strong style="color:var(--text-primary)">桃園區藝文特區、中路重劃區</strong> — 雙北脫北族大量遷入</li>
+          <li><strong style="color:var(--text-primary)">龜山區 A7 重劃區</strong> — 林口長庚對面,房價 2-3 字頭吸引首購族</li>
+          <li><strong style="color:var(--text-primary)">八德區廣豐特區</strong> — 重劃區人口五年增 14%</li>
+        </ol>
+      </div>
+      <div class="card">
+        <div class="card-eyebrow">柒息地 · 內用型</div>
+        <h4 class="card-title">優先點位</h4>
+        <ol style="padding-left: 20px; color: var(--text-secondary); font-size: 14px; line-height: 2;">
+          <li><strong style="color:var(--text-primary)">中壢站前商圈/中央大學商圈</strong> — 學生+移工+上班族</li>
+          <li><strong style="color:var(--text-primary)">桃園站前/區公所周邊</strong> — 夜間消費商圈成熟</li>
+          <li><strong style="color:var(--text-primary)">中壢龍岡商圈/忠貞商圈</strong> — 滇緬美食文化區,聚餐文化強</li>
+          <li><strong style="color:var(--text-primary)">中壢內壢商圈</strong> — 工業區下班族晚餐+宵夜</li>
+        </ol>
+      </div>
+    </div>
+    <div class="callout" style="margin-top: 32px;">
+      <div class="callout-eyebrow">Strategic Recommendation</div>
+      <p class="callout-text">
+        如果只能挑一個試水溫,建議 <em>桃園市中壢區站前商圈或內壢工業區附近</em> — 這是最接近三重「人多但便宜」、但又沒有「在地老店卡位」問題的地方。
+      </p>
+    </div>
+  </div>
+
+  <!-- 台中 -->
+  <div class="tab-content" id="tab-taichung">
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-eyebrow">焦糖楓 · 外帶型</div>
+        <h4 class="card-title">優先點位</h4>
+        <ol style="padding-left: 20px; color: var(--text-secondary); font-size: 14px; line-height: 2;">
+          <li><strong style="color:var(--text-primary)">北屯區捷運舊社站/總站夜市對面</strong> — 新興商圈+捷運帶人流</li>
+          <li><strong style="color:var(--text-primary)">西屯區逢甲夜市周邊</strong> — 學生+觀光客流量大</li>
+          <li><strong style="color:var(--text-primary)">北區一中商圈周邊</strong> — 學生族群最大商圈</li>
+        </ol>
+      </div>
+      <div class="card">
+        <div class="card-eyebrow">柒息地 · 內用型</div>
+        <h4 class="card-title">優先點位</h4>
+        <ol style="padding-left: 20px; color: var(--text-secondary); font-size: 14px; line-height: 2;">
+          <li><strong style="color:var(--text-primary)">西屯區公益路二段</strong> — 台中聚餐天堂、聚餐型客單價高</li>
+          <li><strong style="color:var(--text-primary)">北屯區捷運松竹站/文心崇德站周邊</strong> — 新興住宅+辦公商圈</li>
+          <li><strong style="color:var(--text-primary)">南屯區精明一街</strong> — 七期重劃區邊緣、消費力高</li>
+          <li><strong style="color:var(--text-primary)">西區勤美誠品/草悟道</strong> — 文青型青壯年聚餐區</li>
+        </ol>
+      </div>
+    </div>
+    <div class="callout" style="margin-top: 32px;">
+      <div class="callout-eyebrow">⚠ Caution</div>
+      <p class="callout-text">
+        台中居酒屋強敵很多(店狗二、世正燒鳥、一鳥⋯⋯),柒息地進入要靠 <em>「平價串燒」(一串 19 元起)的清楚定位</em> 取勝,不要跟高價日式居酒屋對打。
+      </p>
+    </div>
+  </div>
+
+  <!-- 高雄 -->
+  <div class="tab-content" id="tab-kaohsiung">
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-eyebrow">焦糖楓 · 外帶型</div>
+        <h4 class="card-title">優先點位</h4>
+        <ol style="padding-left: 20px; color: var(--text-secondary); font-size: 14px; line-height: 2;">
+          <li><strong style="color:var(--text-primary)">三民區吉林夜市</strong> — 後驛站旁、白天到深夜都熱鬧</li>
+          <li><strong style="color:var(--text-primary)">苓雅區自強夜市/興中夜市</strong> — 三多商圈站旁社區型夜市</li>
+          <li><strong style="color:var(--text-primary)">前鎮區光華夜市</strong> — 五權國小站、在地人深夜食堂</li>
+        </ol>
+      </div>
+      <div class="card">
+        <div class="card-eyebrow">柒息地 · 內用型</div>
+        <h4 class="card-title">優先點位</h4>
+        <ol style="padding-left: 20px; color: var(--text-secondary); font-size: 14px; line-height: 2;">
+          <li><strong style="color:var(--text-primary)">左營區瑞豐夜市/漢神巨蛋商圈</strong> — 最大觀光夜市+百貨人潮</li>
+          <li><strong style="color:var(--text-primary)">鼓山區美術館特區/農 16</strong> — 新興高消費住宅</li>
+          <li><strong style="color:var(--text-primary)">三民區後驛/巨蛋商圈</strong> — 通勤+居住雙重客群</li>
+        </ol>
+      </div>
+    </div>
+    <div class="callout" style="margin-top: 32px;">
+      <div class="callout-eyebrow">⚠ Caution</div>
+      <p class="callout-text">
+        高雄夏天熱,<em>戶外型串燒</em>(焦糖楓外帶)在 7-9 月可能受影響,可考慮加強冷氣騎樓或空調候餐區。柒息地反而適合做冷氣聚餐定位。
+      </p>
+    </div>
+  </div>
+
+  <!-- 台南 -->
+  <div class="tab-content" id="tab-tainan">
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-eyebrow">焦糖楓 · 外帶型</div>
+        <h4 class="card-title">優先點位</h4>
+        <ol style="padding-left: 20px; color: var(--text-secondary); font-size: 14px; line-height: 2;">
+          <li><strong style="color:var(--text-primary)">永康區永大夜市周邊</strong> — 崑山科大學生商圈</li>
+          <li><strong style="color:var(--text-primary)">東區崇學路/大學路</strong> — 成大商圈,學生消費頻率高</li>
+        </ol>
+      </div>
+      <div class="card">
+        <div class="card-eyebrow">柒息地 · 內用型</div>
+        <h4 class="card-title">優先點位</h4>
+        <ol style="padding-left: 20px; color: var(--text-secondary); font-size: 14px; line-height: 2;">
+          <li><strong style="color:var(--text-primary)">東區東寧路、東安路一帶</strong> — 年輕家庭住宅+成大溢出客群</li>
+          <li><strong style="color:var(--text-primary)">永康區中華路/中山南路</strong> — 永康人口持續成長中</li>
+        </ol>
+      </div>
+    </div>
+    <div class="callout" style="margin-top: 32px; border-left-color: var(--accent-warning);">
+      <div class="callout-eyebrow" style="color: var(--accent-warning);">建議觀望</div>
+      <p class="callout-text">
+        台南建議 <em>先觀望</em>,等桃園、台中試點站穩再進入。在地老店文化過強,連鎖品牌挑戰大。
+      </p>
+    </div>
+  </div>
+
+  <!-- 新北補強 -->
+  <div class="tab-content" id="tab-newtaipei">
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-eyebrow">可拓展區位</div>
+        <h4 class="card-title">建議補強點位</h4>
+        <ol style="padding-left: 20px; color: var(--text-secondary); font-size: 14px; line-height: 2;">
+          <li><strong style="color:var(--text-primary)">新莊頭前重劃區/副都心</strong> — 新莊站、新北市第二大區</li>
+          <li><strong style="color:var(--text-primary)">林口三井 Outlet/長庚商圈</strong> — 年輕家庭、消費力高</li>
+          <li><strong style="color:var(--text-primary)">淡水市區/紅樹林捷運沿線</strong> — 觀光+居住雙客群</li>
+          <li><strong style="color:var(--text-primary)">三峽北大特區</strong> — 教師+年輕家庭+大學商圈</li>
+        </ol>
+      </div>
+      <div class="card" style="border-left: 3px solid var(--accent-danger);">
+        <div class="card-eyebrow" style="color: var(--accent-danger);">不建議拓展</div>
+        <h4 class="card-title">既有店深耕為主</h4>
+        <p class="card-body">
+          永和、板橋既有店建議 <strong style="color:var(--text-primary)">深耕而非開分店</strong>,因密度已高。<br><br>
+          <strong style="color:var(--accent-danger)">三重、蘆洲不建議再開新店</strong>,既有店請參考下一節「搶救方案」。
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== SECTION 5: 既有店搶救 ========== -->
+<section id="rescue">
+  <div class="section-header">
+    <span class="section-num">06 / RESCUE PLAYBOOK</span>
+    <h3 class="section-title">三重/蘆洲既有店的搶救方案</h3>
+    <span class="section-kicker">如果長約未到期不能撤</span>
+  </div>
+
+  <div class="grid-4">
+    <div class="card">
+      <div class="card-eyebrow">PLAN A</div>
+      <h4 class="card-title">差異化重新定位</h4>
+      <p class="card-body">
+        不要再跟老串角、鏊屋打串燒,改強化 <strong style="color:var(--text-primary)">「外帶 + 19 元銅板價」</strong> 清楚記憶點(焦糖楓做法)。主打機車通勤族下班順手帶 — 三重蘆洲人下班騎車回家路上 15 分鐘的衝動消費。
+      </p>
+    </div>
+    <div class="card">
+      <div class="card-eyebrow">PLAN B</div>
+      <h4 class="card-title">強化外送平台</h4>
+      <p class="card-body">
+        三重蘆洲 Uber Eats / Foodpanda 訂單密度極高(因人口密集+少自炊)。建議 <strong style="color:var(--text-primary)">外送營收做到 40-50%</strong>,而非依賴內用聚餐(內用直接被在地老店打趴)。
+      </p>
+    </div>
+    <div class="card">
+      <div class="card-eyebrow">PLAN C</div>
+      <h4 class="card-title">時段策略</h4>
+      <p class="card-body">
+        內用聚餐時段(18:30-21:00)放棄爭奪,改打 <strong style="color:var(--text-primary)">宵夜時段(22:00-02:00)</strong>。三重蘆洲晚班、夜班勞工多,宵夜串燒+啤酒組合是切點。
+      </p>
+    </div>
+    <div class="card">
+      <div class="card-eyebrow">PLAN D</div>
+      <h4 class="card-title">七天實地觀察</h4>
+      <p class="card-body">
+        派分析人員去既有店附近做觀察:平日/假日 × 晚餐/宵夜 = <strong style="color:var(--text-primary)">4 個時段人流組成</strong>;老串角、鏊屋滿座率 vs 你們店滿座率;外送車隊到店密度。
+      </p>
+    </div>
+  </div>
+
+  <div style="margin-top: 56px;">
+    <h4 style="font-family: 'Noto Serif TC', serif; font-size: 22px; margin-bottom: 24px;">展店評分表 · 候選區位實作版</h4>
+    <table class="dt-table">
+      <thead>
+        <tr>
+          <th style="width: 22%;">評估項目</th>
+          <th style="width: 8%;">權重</th>
+          <th>桃園中壢</th>
+          <th>台中北屯</th>
+          <th>高雄三民</th>
+          <th>三重蘆洲(現)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td class="name-strong">人口數(15萬+)</td><td class="num">15%</td><td class="num num-good">✓ 44萬</td><td class="num num-good">✓ 31萬</td><td class="num num-good">✓ 33萬</td><td class="num num-warn">⚠ 38萬但停滯</td></tr>
+        <tr><td class="name-strong">年齡結構(青壯年比)</td><td class="num">10%</td><td class="num num-good">✓ 73%</td><td class="num num-good">✓ 71%</td><td class="num num-good">✓ 70%</td><td class="num num-warn">⚠ 70% 老化快</td></tr>
+        <tr><td class="name-strong">平均收入</td><td class="num">10%</td><td class="num num-warn">~ 中等</td><td class="num num-good">✓ 中高</td><td class="num num-warn">~ 中等</td><td class="num num-warn">~ 中低</td></tr>
+        <tr><td class="name-strong">人口成長率(10年)</td><td class="num">10%</td><td class="num num-good">✓ +12%</td><td class="num num-good">✓ +高</td><td class="num num-warn">⚠ 微減</td><td class="num num-bad">✗ -2.8%</td></tr>
+        <tr><td class="name-strong">交通便利性</td><td class="num">15%</td><td class="num num-good">✓ 高鐵+台鐵</td><td class="num num-good">✓ 捷運</td><td class="num num-good">✓ 捷運</td><td class="num num-good">✓ 捷運</td></tr>
+        <tr><td class="name-strong">競爭環境</td><td class="num">15%</td><td class="num num-warn">~ 中等</td><td class="num num-warn">~ 中強</td><td class="num num-warn">~ 中強</td><td class="num num-bad">✗ 紅海</td></tr>
+        <tr><td class="name-strong">租金合理性</td><td class="num">15%</td><td class="num num-good">✓ 雙北7折</td><td class="num num-good">✓ 雙北8折</td><td class="num num-good">✓ 雙北6折</td><td class="num num-bad">✗ 接近雙北</td></tr>
+        <tr><td class="name-strong">品牌適配性</td><td class="num">10%</td><td class="num num-good">✓ 兩品牌都適合</td><td class="num num-good">✓ 柒息地優先</td><td class="num num-good">✓ 焦糖楓優先</td><td class="num num-bad">✗ 兩品牌都不適合新進</td></tr>
+        <tr style="background: var(--bg-elevated); font-weight: 700;">
+          <td class="name-strong" style="color: var(--text-primary);">總分</td>
+          <td class="num">100%</td>
+          <td class="num num-good" style="font-size:18px;">90</td>
+          <td class="num num-good" style="font-size:18px;">80</td>
+          <td class="num num-warn" style="font-size:18px;">65</td>
+          <td class="num num-bad" style="font-size:18px;">40</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ========== NEXT STEPS ========== -->
+<section>
+  <div class="section-header">
+    <span class="section-num">07 / NEXT STEPS</span>
+    <h3 class="section-title">給團隊的行動建議</h3>
+    <span class="section-kicker">分工與時程規劃</span>
+  </div>
+
+  <div class="grid-2" style="gap: 24px;">
+    <div class="card">
+      <div class="card-eyebrow">立即執行 · 1-2 週內</div>
+      <h4 class="card-title">內部資料盤點</h4>
+      <p class="card-body">
+        團隊先一起把焦糖楓+柒息地 <strong style="color:var(--text-primary)">現有所有門市的「日營收/來客數/客單價/外帶比例」</strong> 整理出來,對應各門市所在里的人口結構,做相關性分析。這個基礎將是後續所有展店決策的依據。
+      </p>
+    </div>
+    <div class="card">
+      <div class="card-eyebrow">立即執行 · 2-4 週內</div>
+      <h4 class="card-title">桃園實地考察</h4>
+      <p class="card-body">
+        分組安排同仁前往 <strong style="color:var(--text-primary)">中壢站前、桃園藝文特區、龜山 A7</strong> 三點,各做 <strong style="color:var(--text-primary)">七天實地觀察</strong>(平日晚餐/宵夜 + 假日晚餐/宵夜 = 4 時段),回報競爭店滿座率、商圈氛圍、機車流量。
+      </p>
+    </div>
+    <div class="card">
+      <div class="card-eyebrow">中期規劃 · 4-8 週內</div>
+      <h4 class="card-title">競爭強度量化</h4>
+      <p class="card-body">
+        指派專人用 Google Maps 在每個候選點 800 公尺半徑內搜尋「串燒」「居酒屋」,計算競爭店密度與評論數總和。三重蘆洲基準是「每 800 米內 8-12 家、總評論數破萬」,任何新點要 <strong style="color:var(--text-primary)">低於這基準</strong> 才考慮進入。
+      </p>
+    </div>
+    <div class="card">
+      <div class="card-eyebrow">決策階段 · 8-12 週內</div>
+      <h4 class="card-title">試點店規劃 · 店型/坑位選擇</h4>
+      <p class="card-body">
+        實地考察結果出爐後,團隊共同決議:<strong style="color:var(--text-primary)">先開焦糖楓還是柒息地</strong>(建議從外帶型試水成本較低)、<strong style="color:var(--text-primary)">店型坪數</strong>(20-30 坪小店面 vs 50 坪標準店)、<strong style="color:var(--text-primary)">具體坑位</strong>(街口轉角 vs 商圈中段 vs 捷運站旁)。試點店績效跑滿 3 個月後,再決定是否複製到第二、第三店。
+      </p>
+    </div>
+  </div>
+</section>
+
+</div>
+
+<footer class="footer">
+  資料來源 · 內政部戶政司 · 各區公所人口結構分析(113年) · 財政部綜所稅統計 · 新北市/桃園市/高雄市民政局 · 維基百科 · BPM 區域分析平台 · GOMAJI / Klook 商家盤點<br>
+  ANALYSIS BY CLAUDE × JOAN | 2026 © INTERNAL USE ONLY
+</footer>
+
+<script>
+// === Chart.js 全域樣式 ===
+Chart.defaults.font.family = "'Noto Sans TC', sans-serif";
+Chart.defaults.color = '#a89e8f';
+Chart.defaults.borderColor = 'rgba(245, 240, 232, 0.06)';
+
+const fireColor = '#e8552c';
+const amberColor = '#f5a524';
+const successColor = '#8fb069';
+const dangerColor = '#c1432e';
+const infoColor = '#c8a978';
+const charcoal = '#4a443c';
+
+// === 圖表 1: 三重區人口年齡結構 ===
+new Chart(document.getElementById('chartSanchongAge'), {
+  type: 'doughnut',
+  data: {
+    labels: ['0-14 歲幼年', '15-64 歲工作年齡', '65 歲以上老年'],
+    datasets: [{
+      data: [10.2, 70.1, 19.7],
+      backgroundColor: [infoColor, successColor, dangerColor],
+      borderColor: '#211f1b',
+      borderWidth: 3,
+    }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    cutout: '60%',
+    plugins: {
+      legend: {
+        position: 'bottom',
+        labels: { padding: 16, font: { size: 12 }, usePointStyle: true, pointStyle: 'rect' }
+      },
+      tooltip: { callbacks: { label: ctx => `${ctx.label}: ${ctx.parsed}%` } }
+    }
+  }
+});
+
+// === 圖表 2: 五區人口成長率 ===
+new Chart(document.getElementById('chartGrowth'), {
+  type: 'bar',
+  data: {
+    labels: ['三重區', '蘆洲區', '永和區', '板橋區', '桃園中壢', '台中北屯', '林口重劃'],
+    datasets: [{
+      label: '近10年人口成長率',
+      data: [-2.8, 0.5, -1.2, 1.5, 12, 18, 35],
+      backgroundColor: ctx => {
+        const v = ctx.parsed.y;
+        if (v < 0) return dangerColor;
+        if (v < 5) return charcoal;
+        if (v < 15) return amberColor;
+        return successColor;
+      },
+      borderRadius: 2,
+      borderSkipped: false,
+    }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: { display: false },
+      tooltip: { callbacks: { label: ctx => `${ctx.parsed.y > 0 ? '+' : ''}${ctx.parsed.y}%` } }
+    },
+    scales: {
+      y: {
+        title: {
+          display: true,
+          text: '人口成長率 (%)',
+          color: '#a89e8f',
+          font: { size: 12, weight: '700' },
+        },
+        ticks: {
+          callback: v => v + '%',
+          color: '#a89e8f',
+          font: { size: 11 }
+        },
+        grid: { color: 'rgba(245, 240, 232, 0.06)' }
+      },
+      x: {
+        title: {
+          display: true,
+          text: '行政區',
+          color: '#a89e8f',
+          font: { size: 12, weight: '700' },
+        },
+        ticks: { color: '#a89e8f', font: { size: 11 } },
+        grid: { display: false }
+      }
+    }
+  }
+});
+
+// === 圖表 3: 老年人口比例 ===
+new Chart(document.getElementById('chartAging'), {
+  type: 'bar',
+  indexAxis: 'y',
+  data: {
+    labels: ['永和區', '中和區', '三重區', '蘆洲區', '板橋區', '桃園中壢', '台中北屯'],
+    datasets: [{
+      label: '65歲以上人口比例',
+      data: [22.5, 21.2, 19.7, 16.8, 17.2, 14.1, 13.8],
+      backgroundColor: ctx => {
+        const v = ctx.parsed.x;
+        if (v >= 20) return dangerColor;
+        if (v >= 17) return '#d97757';
+        if (v >= 14) return amberColor;
+        return successColor;
+      },
+      borderRadius: 2,
+    }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: { display: false },
+      annotation: false,
+      tooltip: { callbacks: { label: ctx => `${ctx.parsed.x}%` } }
+    },
+    scales: {
+      x: {
+        title: {
+          display: true,
+          text: '老年人口占比 (%)  ·  WHO 定義 ≥20% 為超高齡社會',
+          color: '#a89e8f',
+          font: { size: 12, weight: '700' },
+        },
+        ticks: {
+          callback: v => v + '%',
+          color: '#a89e8f',
+          font: { size: 11 }
+        },
+        grid: { color: 'rgba(245, 240, 232, 0.06)' }
+      },
+      y: {
+        title: {
+          display: true,
+          text: '行政區',
+          color: '#a89e8f',
+          font: { size: 12, weight: '700' },
+        },
+        ticks: { color: '#a89e8f', font: { size: 11 } },
+        grid: { display: false }
+      }
+    }
+  }
+});
+
+// === 圖表 4: 五都雷達圖 ===
+new Chart(document.getElementById('chartRadar'), {
+  type: 'radar',
+  data: {
+    labels: ['人口數', '青壯年比', '平均收入', '人口成長', '交通便利', '競爭環境', '租金合理', '品牌適配'],
+    datasets: [
+      {
+        label: '桃園中壢',
+        data: [9, 9, 7, 9, 9, 7, 9, 10],
+        borderColor: fireColor,
+        backgroundColor: 'rgba(232, 85, 44, 0.15)',
+        borderWidth: 2,
+        pointBackgroundColor: fireColor,
+        pointRadius: 4,
+      },
+      {
+        label: '台中北屯',
+        data: [8, 8, 8, 9, 8, 6, 8, 9],
+        borderColor: amberColor,
+        backgroundColor: 'rgba(245, 165, 36, 0.1)',
+        borderWidth: 2,
+        pointBackgroundColor: amberColor,
+        pointRadius: 4,
+      },
+      {
+        label: '高雄三民',
+        data: [8, 7, 6, 5, 8, 6, 9, 7],
+        borderColor: successColor,
+        backgroundColor: 'rgba(143, 176, 105, 0.1)',
+        borderWidth: 2,
+        pointBackgroundColor: successColor,
+        pointRadius: 4,
+      },
+      {
+        label: '三重蘆洲(對照)',
+        data: [9, 6, 5, 2, 9, 2, 4, 2],
+        borderColor: dangerColor,
+        backgroundColor: 'rgba(193, 67, 46, 0.1)',
+        borderWidth: 2,
+        pointBackgroundColor: dangerColor,
+        pointRadius: 4,
+        borderDash: [6, 4],
+      }
+    ]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        position: 'top',
+        labels: { padding: 20, font: { size: 13 }, usePointStyle: true }
+      }
+    },
+    scales: {
+      r: {
+        beginAtZero: true,
+        max: 10,
+        ticks: { stepSize: 2, color: '#6b6258', backdropColor: 'transparent' },
+        grid: { color: 'rgba(245, 240, 232, 0.1)' },
+        angleLines: { color: 'rgba(245, 240, 232, 0.08)' },
+        pointLabels: { color: '#f5f0e8', font: { size: 13, weight: '500' } }
+      }
+    }
+  }
+});
+
+// === Tab 切換 ===
+document.querySelectorAll('.tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    const target = tab.dataset.tab;
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+    tab.classList.add('active');
+    document.getElementById('tab-' + target).classList.add('active');
+  });
+});
+
+// === 滾動導航 ===
+const dots = document.querySelectorAll('.scroll-nav-dot');
+const sections = ['hero', 'diagnosis', 'compare', 'cities', 'ranking', 'recommendations', 'rescue'];
+
+dots.forEach(dot => {
+  dot.addEventListener('click', () => {
+    const target = document.getElementById(dot.dataset.target);
+    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+});
+
+// 滾動高亮當前段落
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const id = entry.target.id;
+      dots.forEach(d => d.classList.toggle('active', d.dataset.target === id));
+    }
+  });
+}, { threshold: 0.4 });
+
+sections.forEach(id => {
+  const el = document.getElementById(id);
+  if (el) observer.observe(el);
+});
+</script>
+
+</body>
+</html>
