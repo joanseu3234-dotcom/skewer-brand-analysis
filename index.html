@@ -545,6 +545,7 @@ section { margin-bottom: 80px; }
 
 <nav class="scroll-nav">
   <button class="scroll-nav-dot active" data-target="hero" title="總覽"></button>
+  <button class="scroll-nav-dot" data-target="logic" title="展店邏輯"></button>
   <button class="scroll-nav-dot" data-target="diagnosis" title="三重蘆洲診斷"></button>
   <button class="scroll-nav-dot" data-target="compare" title="永和板橋比較"></button>
   <button class="scroll-nav-dot" data-target="cities" title="六都人口比較"></button>
@@ -559,26 +560,188 @@ section { margin-bottom: 80px; }
 <section id="hero" class="hero">
   <div>
     <h2 class="hero-headline">
-      不是<span class="accent">夜市效應</span>,<br>
-      也不是<span class="accent">在地人不吃串燒</span>。
+      不是<span class="accent">城市選錯</span>,<br>
+      是<span class="accent">商圈點選錯</span>。
     </h2>
     <p class="hero-subhead">
-      三重蘆洲既有店業績慘淡的真正原因,藏在三組互相牽動的數據裡:在地老店紅海化、人口零成長、缺乏外部客流灌入。本報告整合內政部戶政司、財政部綜所稅、各區人口結構分析,為焦糖楓(外帶型)與柒息地(內用型)兩品牌,提出五都展店優先順序與具體區位建議。
+      展店成敗的關鍵不是「人住哪裡」,而是「人在哪裡聚集消費」。本報告檢視焦糖楓 12 家台北分店、柒息地新北 3 店實際分布,結合內政部戶政司、財政部綜所稅、各區人口結構分析,為焦糖楓(外帶型)與柒息地(內用型)兩品牌,提出五都展店優先順序與具體商圈點建議。
     </p>
   </div>
   <div class="hero-stats">
     <div class="hero-stat-row">
-      <div class="hero-stat-num">8+</div>
-      <div class="hero-stat-text">三重蘆洲<strong>串燒/居酒屋強敵</strong>(老串角、鏊屋、京田津、宅丁亭、熊賀⋯⋯),平均評價 <strong>4.5★ 以上</strong></div>
+      <div class="hero-stat-num">12 / 12</div>
+      <div class="hero-stat-text">焦糖楓台北分店 <strong>100% 落在商圈/夜市/捷運站/學區</strong>,沒有一家在純住宅區</div>
     </div>
     <div class="hero-stat-row">
-      <div class="hero-stat-num">19.7<span style="font-size:24px;">%</span></div>
-      <div class="hero-stat-text">三重區 <strong>65 歲以上人口比例</strong>,逼近超高齡社會門檻</div>
+      <div class="hero-stat-num">2 / 3</div>
+      <div class="hero-stat-text">柒息地新北 3 店中,<strong>三重自強店、蘆洲集賢店</strong>都選在社區型街道,離捷運站要走 8-10 分鐘</div>
     </div>
     <div class="hero-stat-row">
       <div class="hero-stat-num">37.5</div>
-      <div class="hero-stat-text"><strong>桃園市平均年齡</strong>,六都最年輕,移工年消費商機 <strong>新台幣 79 億</strong></div>
+      <div class="hero-stat-text"><strong>桃園市平均年齡</strong>,六都最年輕,中壢移工年消費商機 <strong>新台幣 79 億</strong></div>
     </div>
+  </div>
+</section>
+
+<!-- ========== SECTION 0.5: 連鎖品牌實際展店邏輯 vs 人口資料 ========== -->
+<section id="logic">
+  <div class="section-header">
+    <span class="section-num">00 / FRAMEWORK</span>
+    <h3 class="section-title">連鎖品牌實際展店邏輯 vs 人口資料</h3>
+    <span class="section-kicker">破除設籍人口的迷思</span>
+  </div>
+
+  <div class="callout">
+    <div class="callout-eyebrow">Methodological Pivot · 方法論校正</div>
+    <p class="callout-text">
+      本報告原本以「<em>行政區設籍人口結構</em>」當作展店判斷依據,但實際檢視焦糖楓 12 家台北分店分布後發現:<br>
+      連鎖串燒品牌看的不是人住哪裡,而是 <em>「人在哪裡聚集消費」</em>。
+    </p>
+  </div>
+
+  <div class="grid-2" style="margin-top: 32px;">
+    <!-- 左:設籍人口的盲點 -->
+    <div class="card" style="border-top: 3px solid var(--accent-warning);">
+      <div class="card-eyebrow" style="color: var(--accent-warning);">PITFALL · 設籍人口盲點</div>
+      <h4 class="card-title">為什麼台北市看數字像差生?</h4>
+      <p class="card-body">
+        若只看設籍人口統計,台北市的數字確實不漂亮:
+      </p>
+      <ul style="padding-left: 20px; color: var(--text-secondary); font-size: 13px; line-height: 1.9; margin-top: 12px;">
+        <li>青壯年比 <strong style="color:var(--text-primary)">64.8% 六都最低</strong></li>
+        <li>老年人口比 <strong style="color:var(--text-primary)">21.2% 六都最高</strong></li>
+        <li>近十年人口流失 <strong style="color:var(--text-primary)">3.2%</strong></li>
+        <li>租金成本是六都最高</li>
+      </ul>
+      <p class="card-body" style="margin-top: 16px; font-style: italic; color: var(--accent-warning);">
+        但這是「居住人口」,不等於「商圈消費人口」。
+      </p>
+    </div>
+
+    <!-- 右:實際展店邏輯 -->
+    <div class="card" style="border-top: 3px solid var(--accent-success);">
+      <div class="card-eyebrow" style="color: var(--accent-success);">REALITY · 實際展店邏輯</div>
+      <h4 class="card-title">焦糖楓在台北怎麼選點?</h4>
+      <p class="card-body">
+        焦糖楓 <strong style="color:var(--accent-amber)">12 家</strong> 台北分店,<strong style="color:var(--text-primary)">100% 落在商圈、夜市、捷運站、學區、觀光區</strong> — 沒有一家開在純住宅區。
+      </p>
+      <p class="card-body" style="margin-top: 12px;">
+        這代表展店判斷的真實邏輯是:
+      </p>
+      <ul style="padding-left: 20px; color: var(--text-secondary); font-size: 13px; line-height: 1.9; margin-top: 8px;">
+        <li><strong style="color:var(--text-primary)">商圈型態</strong>(夜市/商圈/學區/觀光區)</li>
+        <li><strong style="color:var(--text-primary)">日間+夜間活動人口</strong>(非設籍人口)</li>
+        <li><strong style="color:var(--text-primary)">流動客流方向</strong>(灌入 vs 流出)</li>
+        <li><strong style="color:var(--text-primary)">競爭店密度</strong>(同質化程度)</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 焦糖楓台北 12 店實證 -->
+  <div style="margin-top: 40px;">
+    <h4 style="font-family: 'Noto Serif TC', serif; font-size: 22px; margin-bottom: 8px; color: var(--text-primary);">證據:焦糖楓台北 12 店全部命中商圈</h4>
+    <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 20px; font-style: italic;">
+      資料來源:焦糖楓官網分店列表 + 各分店食記交叉比對
+    </p>
+
+    <div style="overflow-x: auto;">
+      <table class="dt-table" style="font-size: 13px;">
+        <thead>
+          <tr>
+            <th style="width: 16%;">分店</th>
+            <th style="width: 16%;">行政區</th>
+            <th>商圈型態</th>
+            <th>客群來源</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="name-strong">通化店<span style="color:var(--accent-amber); font-size:10px; margin-left:6px;">(創始店)</span></td>
+            <td>信義區</td>
+            <td><span class="badge badge-fire">通化夜市</span></td>
+            <td>夜市客流 + 信義區白領</td>
+          </tr>
+          <tr>
+            <td class="name-strong">永吉店</td>
+            <td>信義區</td>
+            <td><span class="badge badge-fire">市政府站 + 永吉商圈</span></td>
+            <td>信義區下班族 + 101 工作人口</td>
+          </tr>
+          <tr>
+            <td class="name-strong">西門店</td>
+            <td>萬華區</td>
+            <td><span class="badge badge-fire">西門町觀光商圈</span></td>
+            <td>觀光客 + 年輕人 + 跨夜消費</td>
+          </tr>
+          <tr>
+            <td class="name-strong">忠孝店</td>
+            <td>大安區</td>
+            <td><span class="badge badge-fire">捷運忠孝復興 + 東區</span></td>
+            <td>東區白領 + 通勤族 + 學生</td>
+          </tr>
+          <tr>
+            <td class="name-strong">師大店</td>
+            <td>大安區</td>
+            <td><span class="badge badge-amber">師大夜市學區</span></td>
+            <td>師大/台大學生 + 周邊住戶</td>
+          </tr>
+          <tr>
+            <td class="name-strong">寧夏店</td>
+            <td>大同區</td>
+            <td><span class="badge badge-fire">寧夏夜市觀光區</span></td>
+            <td>觀光客 + 在地老饕</td>
+          </tr>
+          <tr>
+            <td class="name-strong">饒河店</td>
+            <td>松山區</td>
+            <td><span class="badge badge-fire">饒河夜市觀光區</span></td>
+            <td>觀光客 + 松山在地</td>
+          </tr>
+          <tr>
+            <td class="name-strong">文林店</td>
+            <td>士林區</td>
+            <td><span class="badge badge-fire">士林夜市觀光區</span></td>
+            <td>觀光客 + 學生 + 在地</td>
+          </tr>
+          <tr>
+            <td class="name-strong">林森店</td>
+            <td>中山區</td>
+            <td><span class="badge badge-amber">林森商圈</span></td>
+            <td>商務旅客 + 夜生活客流</td>
+          </tr>
+          <tr>
+            <td class="name-strong">同安店</td>
+            <td>中正區</td>
+            <td><span class="badge badge-amber">中正商圈</span></td>
+            <td>政商客群 + 通勤族</td>
+          </tr>
+          <tr>
+            <td class="name-strong">木柵店</td>
+            <td>文山區</td>
+            <td><span class="badge badge-amber">政大學區</span></td>
+            <td>政大學生 + 文山住戶</td>
+          </tr>
+          <tr>
+            <td class="name-strong">內湖737店</td>
+            <td>內湖區</td>
+            <td><span class="badge badge-amber">內湖科學園區商圈</span></td>
+            <td>科技園區白領 + 加班宵夜</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 重要結論 -->
+  <div style="margin-top: 32px; padding: 28px 32px; background: linear-gradient(135deg, var(--bg-card) 0%, var(--bg-elevated) 100%); border-left: 4px solid var(--accent-fire);">
+    <div class="card-eyebrow" style="margin-bottom: 12px; color: var(--accent-fire);">REVISED THESIS · 修正後的核心論述</div>
+    <p style="font-family: 'Noto Serif TC', serif; font-size: 22px; line-height: 1.55; color: var(--text-primary); margin-bottom: 16px;">
+      展店成敗的關鍵不是「<span style="color: var(--text-muted); text-decoration: line-through;">城市人口結構</span>」,而是 <span style="color: var(--accent-amber); font-style: italic;">「商圈點位是否選對」</span>。
+    </p>
+    <p style="font-size: 14px; color: var(--text-secondary); line-height: 1.7;">
+      因此後續五都評估,不再用「整個城市」當單位,而是進一步看 <strong style="color:var(--text-primary);">城市內部的具體商圈點位</strong>。<br>
+      城市人口數據(青壯年比、年增率)作為 <strong style="color:var(--text-primary);">背景參考</strong>,但不是直接決策依據。
+    </p>
   </div>
 </section>
 
@@ -586,81 +749,91 @@ section { margin-bottom: 80px; }
 <section id="diagnosis">
   <div class="section-header">
     <span class="section-num">01 / DIAGNOSIS</span>
-    <h3 class="section-title">三重蘆洲的「在地飲食習慣」假設,真相是什麼?</h3>
+    <h3 class="section-title">三重蘆洲業績慘淡的雙重原因</h3>
     <span class="section-kicker">破解業績謎題</span>
   </div>
 
   <div class="callout">
-    <div class="callout-eyebrow">Key Finding</div>
+    <div class="callout-eyebrow">Revised Diagnosis · 修正後的診斷</div>
     <p class="callout-text">
-      <em>不是在地人不吃串燒</em> — 三重蘆洲在地人非常會吃串燒,而且都認在地老店。<br>
-      真正問題是 <em>連鎖品牌沒有差異化武器</em>,在這片紅海裡夾在中間。
+      原本以為是「在地人飲食習慣不合」,進一步檢視展店點位後發現,真正問題是 <em>「選錯商圈點」+「飲食文化不合」雙重失準</em> — 既不在商圈黃金地段,周邊飲食偏好又跟串燒/居酒屋不同調。
     </p>
   </div>
 
   <div class="grid-2" style="margin-top: 32px;">
+    <!-- 左:位置失準 -->
     <div>
-      <div class="card-eyebrow">DEMOGRAPHIC FOOTPRINT</div>
-      <h4 class="card-title">三重區 113 年人口結構</h4>
-      <div class="chart-wrapper" style="padding: 20px;">
-        <div class="chart-canvas-container" style="height: 280px;">
-          <canvas id="chartSanchongAge"></canvas>
-        </div>
+      <div class="card" style="border-left: 3px solid var(--accent-danger); background: var(--bg-card);">
+        <div class="card-eyebrow" style="color: var(--accent-danger);">PROBLEM 1 · 位置失準</div>
+        <h4 class="card-title">不是商圈黃金點</h4>
+        <p class="card-body">
+          檢視柒息地新北分店實際位置:
+        </p>
+        <ul style="padding-left: 0; list-style: none; margin-top: 16px;">
+          <li style="padding: 12px 16px; background: var(--bg-elevated); border-left: 3px solid var(--accent-success); margin-bottom: 8px;">
+            <strong style="color:var(--accent-success);">✓ 永和店(中正路)</strong> — 近頂溪捷運站、樂華夜市商圈,雙北通勤外溢客流
+          </li>
+          <li style="padding: 12px 16px; background: var(--bg-elevated); border-left: 3px solid var(--accent-danger); margin-bottom: 8px;">
+            <strong style="color:var(--accent-danger);">✗ 三重自強店</strong> — 自強路一段 230 號,離捷運三重國小站要走 8-10 分鐘
+          </li>
+          <li style="padding: 12px 16px; background: var(--bg-elevated); border-left: 3px solid var(--accent-danger);">
+            <strong style="color:var(--accent-danger);">✗ 蘆洲集賢店</strong> — 集賢路 216 號,社區型街道、無捷運直達
+          </li>
+        </ul>
+        <p class="card-body" style="margin-top: 16px; font-style: italic;">
+          連鎖品牌的成功公式是「日間活動人口 × 流動客流」,需要 <strong style="color:var(--text-primary)">捷運站旁、夜市內、學區、觀光商圈</strong>。三重蘆洲現有店都選了「住宅街道型」位置 — 客群只有在地居民。
+        </p>
       </div>
-      <p class="card-body" style="margin-top: 16px;">
-        資料來源:新北市三重區公所「113 年人口結構分析」。三重區 65 歲以上人口已達 19.7%,接近超高齡社會門檻;戶量降至 2.31 人/戶,單身/獨居比例升高,但「一人吃串燒」並非台灣主流飲食習慣。
-      </p>
     </div>
 
+    <!-- 右:飲食文化不合 -->
     <div>
-      <div class="card-eyebrow">COMPETITIVE LANDSCAPE</div>
-      <h4 class="card-title">三重蘆洲串燒/居酒屋強敵盤點</h4>
-      <div class="grid-2" style="gap: 12px;">
-        <div class="competitor-card">
-          <div class="competitor-name">老串角</div>
-          <div class="competitor-rating">★ 4.9 · 1,200+ 評論</div>
-          <div class="competitor-area">三重 自強路</div>
+      <div class="card" style="border-left: 3px solid var(--accent-warning); background: var(--bg-card);">
+        <div class="card-eyebrow" style="color: var(--accent-warning);">PROBLEM 2 · 飲食文化不合</div>
+        <h4 class="card-title">自強路是台味宵夜大本營</h4>
+        <p class="card-body">
+          自強路一段被三重在地媒體稱為 <strong style="color:var(--text-primary)">「三重宵夜美食大本營」</strong>,但這條街上的主流是:
+        </p>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 12px;">
+          <div style="padding: 10px 12px; background: var(--bg-elevated); font-size: 12px;">
+            <strong style="color:var(--text-primary);">汪派沙茶羊肉</strong>
+            <div style="color: var(--text-muted); font-size: 11px; margin-top: 2px;">三重排隊炒羊肉</div>
+          </div>
+          <div style="padding: 10px 12px; background: var(--bg-elevated); font-size: 12px;">
+            <strong style="color:var(--text-primary);">霸味薑母鴨</strong>
+            <div style="color: var(--text-muted); font-size: 11px; margin-top: 2px;">深夜宵夜首選</div>
+          </div>
+          <div style="padding: 10px 12px; background: var(--bg-elevated); font-size: 12px;">
+            <strong style="color:var(--text-primary);">店小二/唯豐魯肉飯</strong>
+            <div style="color: var(--text-muted); font-size: 11px; margin-top: 2px;">三重五大滷肉飯</div>
+          </div>
+          <div style="padding: 10px 12px; background: var(--bg-elevated); font-size: 12px;">
+            <strong style="color:var(--text-primary);">麻妃麻辣鍋</strong>
+            <div style="color: var(--text-muted); font-size: 11px; margin-top: 2px;">老字號火鍋</div>
+          </div>
+          <div style="padding: 10px 12px; background: var(--bg-elevated); font-size: 12px;">
+            <strong style="color:var(--text-primary);">食匠川味水煮</strong>
+            <div style="color: var(--text-muted); font-size: 11px; margin-top: 2px;">三重熱炒</div>
+          </div>
+          <div style="padding: 10px 12px; background: var(--bg-elevated); font-size: 12px;">
+            <strong style="color:var(--text-primary);">永晉藥膳坊</strong>
+            <div style="color: var(--text-muted); font-size: 11px; margin-top: 2px;">三重藥膳雞湯</div>
+          </div>
         </div>
-        <div class="competitor-card">
-          <div class="competitor-name">鏊屋</div>
-          <div class="competitor-rating">★ 多分店連鎖</div>
-          <div class="competitor-area">蘆洲總店+三重+新莊</div>
-        </div>
-        <div class="competitor-card">
-          <div class="competitor-name">京田津居酒屋</div>
-          <div class="competitor-rating">★ 在地激推</div>
-          <div class="competitor-area">三重 重陽路</div>
-        </div>
-        <div class="competitor-card">
-          <div class="competitor-name">宅丁亭迴轉串燒</div>
-          <div class="competitor-rating">★ 三層樓店</div>
-          <div class="competitor-area">三重 菜寮捷運站</div>
-        </div>
-        <div class="competitor-card">
-          <div class="competitor-name">熊賀串燒</div>
-          <div class="competitor-rating">★ 蘆洲必訪</div>
-          <div class="competitor-area">蘆洲 三民高中站</div>
-        </div>
-        <div class="competitor-card">
-          <div class="competitor-name">饗串味</div>
-          <div class="competitor-rating">★ 4.5 · 炭火</div>
-          <div class="competitor-area">蘆洲 九芎街</div>
-        </div>
-        <div class="competitor-card">
-          <div class="competitor-name">夜こそ Yorukoso</div>
-          <div class="competitor-rating">★ 下班首選</div>
-          <div class="competitor-area">三重 三重國小站</div>
-        </div>
-        <div class="competitor-card">
-          <div class="competitor-name">弘燒烤酒場</div>
-          <div class="competitor-rating">★ 4.2 · 日本酒</div>
-          <div class="competitor-area">三重 三和國中站</div>
-        </div>
+        <p class="card-body" style="margin-top: 16px; font-style: italic;">
+          周邊飲食文化偏 <strong style="color:var(--text-primary)">「重口味台味+湯品+鍋物」</strong>,跟串燒/居酒屋的「日式聚餐+酒水」屬於不同消費場景。客人來自強路想到的是吃羊肉、薑母鴨、滷肉飯,不是串燒。
+        </p>
       </div>
-      <p class="card-body" style="margin-top: 16px; font-style: italic;">
-        柒息地三重自強店進入時,等於踩進老串角的主場。這些店都已佔住「巷弄、捷運站、夜市旁」三種主要商圈位置。
-      </p>
     </div>
+  </div>
+
+  <!-- 底部:核心 takeaway -->
+  <div style="margin-top: 32px; padding: 24px 28px; background: var(--bg-card); border: 1px solid var(--border); border-radius: 4px;">
+    <div class="card-eyebrow" style="margin-bottom: 12px;">CORE TAKEAWAY</div>
+    <p style="font-family: 'Noto Serif TC', serif; font-size: 18px; line-height: 1.6; color: var(--text-primary);">
+      三重蘆洲的問題,不是「整個區不能開串燒店」,而是 <strong style="color:var(--accent-fire);">現有店挑錯了商圈點</strong>。
+      如果要在三重蘆洲做生意,應該選 <strong style="color:var(--accent-amber);">三和夜市旁、捷運三重站/三重國小站正出口、菜寮捷運站</strong> 等真正的商圈黃金點 — 而不是社區型住宅街道。
+    </p>
   </div>
 </section>
 
@@ -687,13 +860,13 @@ section { margin-bottom: 80px; }
     <div class="compare-vs">VS</div>
     <div class="compare-col right">
       <div class="compare-title">三重 · 蘆洲</div>
-      <div class="compare-subtitle">EXTERNAL TRAFFIC OUT</div>
+      <div class="compare-subtitle">WRONG SPOT · 商圈點失準</div>
       <div class="compare-points">
+        <div class="compare-point">柒息地三重自強店、蘆洲集賢店都選社區型街道,離捷運站要走 8-10 分鐘</div>
+        <div class="compare-point">三重自強路雖是宵夜大本營,但主流是羊肉爐、薑母鴨、滷肉飯、麻辣鍋等台味</div>
         <div class="compare-point">是通勤族「離開」的起點(往台北上班),非外部客流終點</div>
         <div class="compare-point">人口零成長(三重十年 -2.8%),不像桃園、林口有重劃區帶入新青壯年</div>
-        <div class="compare-point">早期中南部北上移民聚集地,飲食偏好仍以小吃、海產、熱炒、薑母鴨為主</div>
-        <div class="compare-point">串燒/居酒屋已紅海化,8+ 家在地名店各自佔住捷運站、巷弄、夜市旁</div>
-        <div class="compare-point">捷運站周邊已被在地老店卡住,連鎖品牌無差異化記憶點</div>
+        <div class="compare-point">客群只剩在地居民,且飲食偏好與串燒/居酒屋不同調</div>
       </div>
     </div>
   </div>
@@ -788,7 +961,7 @@ section { margin-bottom: 80px; }
           <td class="num num-bad">21.2%</td>
           <td class="num num-bad">-3.2%</td>
           <td class="num num-good">+0.82%</td>
-          <td><span class="badge badge-warn">老化嚴重</span></td>
+          <td><span class="badge badge-amber">商圈點優異</span></td>
         </tr>
         <tr>
           <td class="name-strong">高雄市</td>
@@ -827,13 +1000,13 @@ section { margin-bottom: 80px; }
       </ul>
     </div>
     <div class="card" style="border-left: 3px solid var(--accent-warning);">
-      <div class="card-eyebrow">展店警示</div>
-      <h4 class="card-title">為什麼台北/台南排末段?</h4>
+      <div class="card-eyebrow">關鍵注意事項</div>
+      <h4 class="card-title">台北 ≠ 末段班 · 台南要觀望</h4>
       <p class="card-body">
-        台北市青壯年比僅 <strong style="color:var(--text-primary)">64.8%(六都最低)</strong>、老年比 21.2%、十年人口減少 3.2%,租金又最貴 — 投報率不佳。
+        <strong style="color:var(--text-primary);">台北市</strong>:設籍人口數據雖差,但其商圈點(西門、信義、東區、各大夜市)反而是 <strong style="color:var(--accent-amber);">日間流動人口高地</strong>。焦糖楓 12 家台北店都選在這些商圈,印證了「整體數據看似差,但選對點就強」的邏輯。
       </p>
       <p class="card-body" style="margin-top: 12px;">
-        台南市為六都人口最少(1.85M)、近十年衰退 2%,加上夜市以攤位型為主,連鎖店面難搶在地老店的價格優勢。
+        <strong style="color:var(--text-primary);">台南市</strong>:六都人口最少(1.85M)、近十年衰退 2%,加上夜市以攤位型為主,連鎖店面難搶在地老店的價格優勢。建議先觀望。
       </p>
     </div>
   </div>
@@ -1223,16 +1396,16 @@ section { margin-bottom: 80px; }
   <div class="grid-4">
     <div class="card">
       <div class="card-eyebrow">PLAN A</div>
-      <h4 class="card-title">差異化重新定位</h4>
+      <h4 class="card-title">轉型在地宵夜場</h4>
       <p class="card-body">
-        不要再跟老串角、鏊屋打串燒,改強化 <strong style="color:var(--text-primary)">「外帶 + 19 元銅板價」</strong> 清楚記憶點(焦糖楓做法)。主打機車通勤族下班順手帶 — 三重蘆洲人下班騎車回家路上 15 分鐘的衝動消費。
+        既然位置在自強路宵夜街、不是商圈點,就接受現實 — 主打 <strong style="color:var(--text-primary)">「外帶 + 19 元銅板價」</strong> 清楚記憶點。鎖定機車通勤族下班順手帶,做 15 分鐘衝動消費,跟羊肉、薑母鴨形成「不同晚餐選項」。
       </p>
     </div>
     <div class="card">
       <div class="card-eyebrow">PLAN B</div>
       <h4 class="card-title">強化外送平台</h4>
       <p class="card-body">
-        三重蘆洲 Uber Eats / Foodpanda 訂單密度極高(因人口密集+少自炊)。建議 <strong style="color:var(--text-primary)">外送營收做到 40-50%</strong>,而非依賴內用聚餐(內用直接被在地老店打趴)。
+        三重蘆洲 Uber Eats / Foodpanda 訂單密度極高(因人口密集 + 少自炊)。建議 <strong style="color:var(--text-primary)">外送營收做到 40-50%</strong>,讓無法走進店裡的住宅區客群也能消費,擴大覆蓋半徑。
       </p>
     </div>
     <div class="card">
@@ -1345,32 +1518,6 @@ const successColor = '#8fb069';
 const dangerColor = '#c1432e';
 const infoColor = '#c8a978';
 const charcoal = '#4a443c';
-
-// === 圖表 1: 三重區人口年齡結構 ===
-new Chart(document.getElementById('chartSanchongAge'), {
-  type: 'doughnut',
-  data: {
-    labels: ['0-14 歲幼年', '15-64 歲工作年齡', '65 歲以上老年'],
-    datasets: [{
-      data: [10.2, 70.1, 19.7],
-      backgroundColor: [infoColor, successColor, dangerColor],
-      borderColor: '#211f1b',
-      borderWidth: 3,
-    }]
-  },
-  options: {
-    responsive: true,
-    maintainAspectRatio: false,
-    cutout: '60%',
-    plugins: {
-      legend: {
-        position: 'bottom',
-        labels: { padding: 16, font: { size: 12 }, usePointStyle: true, pointStyle: 'rect' }
-      },
-      tooltip: { callbacks: { label: ctx => `${ctx.label}: ${ctx.parsed}%` } }
-    }
-  }
-});
 
 // === 圖表 2: 五區人口成長率 ===
 new Chart(document.getElementById('chartGrowth'), {
@@ -1563,7 +1710,7 @@ document.querySelectorAll('.tab').forEach(tab => {
 
 // === 滾動導航 ===
 const dots = document.querySelectorAll('.scroll-nav-dot');
-const sections = ['hero', 'diagnosis', 'compare', 'cities', 'ranking', 'recommendations', 'rescue'];
+const sections = ['hero', 'logic', 'diagnosis', 'compare', 'cities', 'ranking', 'recommendations', 'rescue'];
 
 dots.forEach(dot => {
   dot.addEventListener('click', () => {
